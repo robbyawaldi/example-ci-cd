@@ -5,9 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ test ]
 
 jobs:
   build:
@@ -42,3 +40,14 @@ jobs:
         with:
           push: true
           tags: robbyawaldi/example-ci-cd:latest
+    -
+        name: VPS - pull image and run app container
+        uses: appleboy/ssh-action@master
+        with: 
+          host: bi.nti.co.id
+          username: dev
+          port: 8288
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+             docker pull robbyawaldi/example-ci-cd:latest
+             docker run -d -p 8080:8080 --restart always robbyawaldi/example-ci-cd:latest
