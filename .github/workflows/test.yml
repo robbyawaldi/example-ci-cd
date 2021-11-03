@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ test ]
+    branches: [ main ]
 
 jobs:
   test:
@@ -49,21 +49,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - 
-        name: Check Directory
-        run : "ls -la $GITHUB_WORKSPACE"
-    -
-        name: VPS - pull image and run app container
-        uses: appleboy/ssh-action@master
-        with: 
-          host: bi.nti.co.id
-          username: dev
-          port: 8288
-          key: ${{ secrets.PRIVATE_KEY }}
-          script: |
-             docker pull robbyawaldi/example-ci-cd:latest
-             docker rm -f example-ci-cd
-             docker run -d -p 8080:8080 --restart always --name example-ci-cd robbyawaldi/example-ci-cd:latest
+#     -
+#         name: VPS - pull image and run app container
+#         uses: appleboy/ssh-action@master
+#         with: 
+#           host: bi.nti.co.id
+#           username: dev
+#           port: 8288
+#           key: ${{ secrets.PRIVATE_KEY }}
+#           script: |
+#              docker pull robbyawaldi/example-ci-cd:latest
+#              docker rm -f example-ci-cd
+#              docker run -d -p 8080:8080 --restart always --name example-ci-cd robbyawaldi/example-ci-cd:latest
      
     - 
         name: copy file via ssh key
@@ -74,4 +71,4 @@ jobs:
           port: 8288
           key: ${{ secrets.PRIVATE_KEY }}
           source: "dist"
-          target: "~"
+          target: "~/dist"
