@@ -30,3 +30,9 @@ const main = () => {
 }
 
 main()
+
+
+// Dinda:
+// - Buat Endpoint user list yang berada di jakarta 
+// Dani
+// - Merubah daftar kota menjadi huruf capital di endpoint /users/cities
