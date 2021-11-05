@@ -1,16 +1,16 @@
 import express, { Request, Response } from 'express'
-import { userInJakarta } from './filterUser'
 import { User } from './User'
+import { userInJakarta } from './filterUser'
+
+const users = [
+    new User("Riza", "depok"),
+    new User("Afrizal", "jakarta barat"),
+    new User("Lisna", "bandung"),
+    new User("Rama", "jakarta timur"),
+]
 
 const main = () => {
     const app = express()
-
-    const users = [
-        new User("Riza", "depok"),
-        new User("Afrizal", "jakarta barat"),
-        new User("Lisna", "bandung"),
-        new User("Rama", "jakarta timur"),
-    ]
 
     app.get('/', (_: Request, res: Response) => {
         res.json({ message: 'Welcome to Super Simple REST API' })
@@ -22,10 +22,6 @@ const main = () => {
 
     app.get('/users/cities', (_: Request, res: Response) => {
         res.json({ data: users.map(user => user.getCity()) })
-    })
-
-    app.get('/users/jakarta', (_: Request, res: Response) => {
-        res.json({ data: userInJakarta(users) })
     })
 
     app.listen(8080, () => {
