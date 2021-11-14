@@ -17,13 +17,12 @@ const main = async () => {
         res.json({ message: 'Welcome to Super Simple REST API' })
     })
 
-    app.get('/users', (req: Request, res: Response) => {
-        const filter = req.query["filter-city"]
-        if (filter) {
-            console.log(filter)
-            res.json({ data: filterByCity(users, filter as string) })
-            return
-        }
+    app.get('/users', (_: Request, res: Response) => {
+        // const filter = req.query["filter-city"]
+        // if (filter) {
+        //     res.json({ data: filterByCity(users, filter as string) })
+        //     return
+        // }
         res.json({ data: users })
     })
 
@@ -48,12 +47,18 @@ main()
 
 
 // Dinda:
-// - Membuat Endpoint user list yang berada di jakarta 
+// - Membuat filter user by city di endpoint /users
 // Dani
 // - Menambahkan suffix "Kota" di endpoint /users/cities
 
 
 
+// Docker build and push
+// https://github.com/docker/build-push-action
+// SCP action
+// https://github.com/appleboy/scp-action
+// SSH action
+// https://github.com/appleboy/ssh-action
 // Example Postgres service in github action
 // https://gist.github.com/2color/537f8ef13ecec80059abb007839a6878
 // Example Storing folder and file as artifacts
