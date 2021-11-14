@@ -9,7 +9,9 @@
         "noImplicitAny": false,
         "removeComments": true,
         "inlineSourceMap": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
     },
     "include": [
         "src/**/*.ts",
