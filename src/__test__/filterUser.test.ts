@@ -5,18 +5,18 @@ import { filterByCity } from "../utils/filterUser"
 describe('Filter User', () => {
 
     it('filter User By City', async () => {
+        
+        // await createConnection()
 
-        await createConnection()
+        // const userRepository = getRepository(User)
 
-        const userRepository = getRepository(User)
+        // // get all users
+        // const users = await userRepository.find()
 
-        // get all users
-        const users = await userRepository.find()
+        // const data = filterByCity(users, "jakarta")
 
-        const data = filterByCity(users, "jakarta")
-
-        if (data.length !== 2) {
-            throw new Error("Waduh jadi error")
-        }
+        // if (data.length !== 2) {
+        //     throw new Error("Waduh jadi error")
+        // }
     })
 })
