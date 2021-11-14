@@ -4,7 +4,7 @@ import { filterByCity } from "../utils/filterUser"
 
 describe('Filter User', () => {
 
-    it('filter users in jakarta', async () => {
+    it('filter User By City', async () => {
 
         await createConnection()
 
@@ -13,7 +13,7 @@ describe('Filter User', () => {
         // get all users
         const users = await userRepository.find()
 
-        const data = filterByCity(users, "Jakarta")
+        const data = filterByCity(users, "jakarta")
 
         if (data.length !== 2) {
             throw new Error("Waduh jadi error")

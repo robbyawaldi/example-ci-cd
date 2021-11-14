@@ -26,6 +26,6 @@ export class User {
     }
 
     getCity() {
-        return this.city
+        return "Kota " + this.city
     }
 }
