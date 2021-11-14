@@ -51,3 +51,10 @@ main()
 // - Membuat Endpoint user list yang berada di jakarta 
 // Dani
 // - Menambahkan suffix "Kota" di endpoint /users/cities
+
+
+
+// Example Postgres service in github action
+// https://gist.github.com/2color/537f8ef13ecec80059abb007839a6878
+// Example Storing folder and file as artifacts
+// https://docs.github.com/en/actions/advanced-guides/storing-workflow-data-as-artifacts
