@@ -8,9 +8,9 @@
     "dev": "nodemon src/index.ts",
     "test": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha --require ts-node/register 'src/__test__/**/*.ts'",
     "build": "tsc",
-    "typeorm": "ts-node ./node_modules/typeorm/cli -f ormconfig.json",
+    "typeorm": "ts-node ./node_modules/typeorm/cli -f ormconfig.js",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
-    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed --configName ormconfig.json"
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed --configName ormconfig.js"
   },
   "keywords": [],
   "author": "",
