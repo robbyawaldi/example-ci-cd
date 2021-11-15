@@ -3,11 +3,31 @@ import { createConnection, getRepository } from 'typeorm'
 import { User } from './entity/User'
 import { filterByCity } from './utils/filterUser'
 import { unique } from './utils/unique'
+import path from 'path'
+
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
 const main = async () => {
     const app = express()
 
-    await createConnection()
+    console.log(process.env.HOST, __dirname)
+
+    const conn = await createConnection({
+        type: "postgres",
+        host: process.env.HOST,
+        port: 5432,
+        username: "postgres",
+        password: "zxcasd",
+        database: "postgres",
+        logging: false,
+        synchronize: false,
+        migrations: [path.join(__dirname, "./migrations/*")],
+        entities: [User],
+    })
+
+    if (conn.isConnected) {
+        console.log('database connected')
+    }
 
     const userRepository = getRepository(User)
 

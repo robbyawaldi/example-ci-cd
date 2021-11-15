@@ -37,6 +37,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+      env:
+        HOST: localhost
     - run: npm i
     - run: npm run build
     - run: npm run typeorm migration:run
@@ -55,39 +57,43 @@ jobs:
         with:
           push: true
           tags: robbyawaldi/example-ci-cd:latest
-    - 
-        name: copy file via ssh key
-        uses: appleboy/scp-action@master
-        with:
-          host: bi.nti.co.id
-          username: dev
-          port: 8288
-          key: ${{ secrets.PRIVATE_KEY }}
-          source: "dist"
-          target: "~/dist"
-    -   name: Archive production artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist-folder
-          path: |
-            dist
+    # - 
+    #     name: copy file via ssh key
+    #     uses: appleboy/scp-action@master
+    #     with:
+    #       host: bi.nti.co.id
+    #       username: dev
+    #       port: 8288
+    #       key: ${{ secrets.PRIVATE_KEY }}
+    #       source: "dist"
+    #       target: "~/dist"
+    # -   name: Archive production artifacts
+    #     uses: actions/upload-artifact@v2
+    #     with:
+    #       name: dist-folder
+    #       path: |
+    #         dist
           
-  cd:
+  # cd:
     
-    needs: [ci]
+  #   needs: [ci]
     
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
     
-    steps:
-    -
-        name: VPS - pull image and run app container
-        uses: appleboy/ssh-action@master
-        with: 
-          host: bi.nti.co.id
-          username: dev
-          port: 8288
-          key: ${{ secrets.PRIVATE_KEY }}
-          script: |
-             docker pull robbyawaldi/example-ci-cd:latest
-             docker rm -f example-ci-cd
-             docker run -d -p 8080:8080 --restart always --name example-ci-cd robbyawaldi/example-ci-cd:latest
+  #   steps:
+  #   -
+  #       name: VPS - pull image and run app container
+  #       uses: appleboy/ssh-action@master
+  #       with: 
+  #         host: bi.nti.co.id
+  #         username: dev
+  #         port: 8288
+  #         key: ${{ secrets.PRIVATE_KEY }}
+  #         script: |
+  #            docker pull postgres
+  #            docker pull robbyawaldi/example-ci-cd:latest
+  #            docker volume create pg_data
+  #            docker rm -f postgres example-ci-cd
+  #            docker run -p 5432:5432 --restart always --name postgres -v pg_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=zxcasd -d postgres
+  #            docker run -d -p 8080:8080 --restart always --name example-ci-cd robbyawaldi/example-ci-cd:latest
+  #            docker exec -i example-ci-cd
