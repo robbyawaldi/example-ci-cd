@@ -93,7 +93,8 @@ jobs:
   #            docker pull postgres
   #            docker pull robbyawaldi/example-ci-cd:latest
   #            docker volume create pg_data
+  #            docker network create cicd-net
   #            docker rm -f postgres example-ci-cd
-  #            docker run -p 5432:5432 --restart always --name postgres -v pg_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=zxcasd -d postgres
-  #            docker run -d -p 8080:8080 --restart always --name example-ci-cd robbyawaldi/example-ci-cd:latest
+  #            docker run -p 5432:5432 --restart always --network cicd-net --network-alias=db --name postgres -v pg_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=zxcasd -d postgres
+  #            docker run -d -p 8080:8080 --restart always --network cicd-net --network-alias=nodejs -e HOST=db --name example-ci-cd robbyawaldi/example-ci-cd:latest
   #            docker exec -i example-ci-cd
