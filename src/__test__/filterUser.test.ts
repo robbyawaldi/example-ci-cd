@@ -1,7 +1,6 @@
 import { createConnection, getRepository } from "typeorm"
 import { User } from "../entity/User"
 import { filterByCity } from "../utils/filterUser"
-const path = require('path')
 
 describe('Filter User', () => {
 
@@ -16,7 +15,6 @@ describe('Filter User', () => {
             database: "postgres",
             logging: false,
             synchronize: false,
-            migrations: [path.join(__dirname, "./migrations/*")],
             entities: [User],
         })
 
