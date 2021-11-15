@@ -1,7 +1,7 @@
 import { createConnection, getRepository } from "typeorm"
 import { User } from "../entity/User"
 import { filterByCity } from "../utils/filterUser"
-import path from 'path'
+const path = require('path')
 
 describe('Filter User', () => {
 
