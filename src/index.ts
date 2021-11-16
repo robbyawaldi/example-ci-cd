@@ -10,8 +10,6 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 const main = async () => {
     const app = express()
 
-    console.log(process.env.HOST, __dirname)
-
     const conn = await createConnection({
         type: "postgres",
         host: process.env.HOST,
