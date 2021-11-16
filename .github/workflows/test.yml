@@ -65,8 +65,8 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "dist,package.json"
-          target: "~/test-app"
+          source: "dist"
+          target: "~/test-app/dist"
     -   name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -93,6 +93,6 @@ jobs:
              docker pull robbyawaldi/example-ci-cd:latest
              docker rm -f postgres example-ci-cd
              docker run -p 5432:5432 --restart always --network cicd-net --network-alias=db --name postgres -v pg_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=zxcasd -d postgres
-             docker run -d -p 8081:8080 --restart always --network cicd-net --network-alias=nodejs -e HOST=db --name example-ci-cd robbyawaldi/example-ci-cd:latest
+             docker run -d -p 8081:8082 --restart always --network cicd-net --network-alias=nodejs -e HOST=db --name example-ci-cd robbyawaldi/example-ci-cd:latest
              docker exec -i example-ci-cd yarn typeorm migration:run
              docker exec -i example-ci-cd yarn seed:run           
