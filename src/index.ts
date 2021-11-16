@@ -48,7 +48,7 @@ const main = async () => {
         res.json({ data: unique(users.map(user => user.getCity())) })
     })
 
-    app.listen(8083, () => {
+    app.listen(8083, '0.0.0.0', () => {
         console.log("server started on port 8083")
     })
 }
