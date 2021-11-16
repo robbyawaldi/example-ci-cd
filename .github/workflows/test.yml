@@ -65,8 +65,8 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "dist"
-          target: "~/test-app/dist"
+          source: "dist,package.json"
+          target: "~/test-app"
     -   name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
