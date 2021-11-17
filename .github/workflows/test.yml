@@ -74,7 +74,7 @@ jobs:
           path: |
             dist
           
-  cd:
+  cd-docker:
     
     needs: [ci]
     
@@ -96,3 +96,23 @@ jobs:
              docker run -d -p 8081:8083 --restart always --network cicd-net --network-alias=nodejs -e HOST=db --name example-ci-cd robbyawaldi/example-ci-cd:latest
              docker exec -i example-ci-cd yarn typeorm migration:run
              docker exec -i example-ci-cd yarn seed:run           
+
+  cd-pm2:
+
+    needs: [ci]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    -
+        name: VPS - Update Dependency And Restart PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: 103.173.75.39
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+             cd test-app
+             npm i
+             pm2 restart test-app
