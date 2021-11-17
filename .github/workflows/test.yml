@@ -113,7 +113,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-             cd test-app
-             source ~/.profile
-             npm i
-             pm2 restart test-app
+              cd test-app
+              export NVM_DIR=~/.nvm
+              source ~/.nvm/nvm.sh 
+              npm i
+              pm2 restart test-app
