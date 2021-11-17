@@ -114,5 +114,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
              cd test-app
+             source ~/.profile
              npm i
              pm2 restart test-app
