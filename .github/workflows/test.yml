@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ test ]
+    branches: [ main ]
 
 jobs:
   ci:
@@ -73,48 +73,49 @@ jobs:
           name: dist-folder
           path: |
             dist
+            package.json
           
-  cd-docker:
+  # cd-docker:
     
-    needs: [ci]
+  #   needs: [ci]
     
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
     
-    steps:
-    -
-        name: VPS - pull image and run app container
-        uses: appleboy/ssh-action@master
-        with: 
-          host: 103.173.75.39
-          port: ${{ secrets.PORT }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-             docker pull robbyawaldi/example-ci-cd:latest
-             docker rm -f postgres example-ci-cd
-             docker run -p 5432:5432 --restart always --network cicd-net --network-alias=db --name postgres -v pg_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=zxcasd -d postgres
-             docker run -d -p 8081:8083 --restart always --network cicd-net --network-alias=nodejs -e HOST=db --name example-ci-cd robbyawaldi/example-ci-cd:latest
-             docker exec -i example-ci-cd yarn typeorm migration:run
-             docker exec -i example-ci-cd yarn seed:run           
+  #   steps:
+  #   -
+  #       name: VPS - pull image and run app container
+  #       uses: appleboy/ssh-action@master
+  #       with: 
+  #         host: 103.173.75.39
+  #         port: ${{ secrets.PORT }}
+  #         username: ${{ secrets.USERNAME }}
+  #         password: ${{ secrets.PASSWORD }}
+  #         script: |
+  #            docker pull robbyawaldi/example-ci-cd:latest
+  #            docker rm -f postgres example-ci-cd
+  #            docker run -p 5432:5432 --restart always --network cicd-net --network-alias=db --name postgres -v pg_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=zxcasd -d postgres
+  #            docker run -d -p 8081:8083 --restart always --network cicd-net --network-alias=nodejs -e HOST=db --name example-ci-cd robbyawaldi/example-ci-cd:latest
+  #            docker exec -i example-ci-cd yarn typeorm migration:run
+  #            docker exec -i example-ci-cd yarn seed:run           
 
-  cd-pm2:
+  # cd-pm2:
 
-    needs: [ci]
+  #   needs: [ci]
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    steps:
-    -
-        name: VPS - Update Dependency And Restart PM2
-        uses: appleboy/ssh-action@master
-        with:
-          host: 103.173.75.39
-          port: ${{ secrets.PORT }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-              cd test-app
-              export NVM_DIR=~/.nvm
-              source ~/.nvm/nvm.sh 
-              npm i
-              pm2 restart test-app
+  #   steps:
+  #   -
+  #       name: VPS - Update Dependency And Restart PM2
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: 103.173.75.39
+  #         port: ${{ secrets.PORT }}
+  #         username: ${{ secrets.USERNAME }}
+  #         password: ${{ secrets.PASSWORD }}
+  #         script: |
+  #             cd test-app
+  #             export NVM_DIR=~/.nvm
+  #             source ~/.nvm/nvm.sh 
+  #             npm i
+  #             pm2 restart test-app
