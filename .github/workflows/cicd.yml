@@ -59,3 +59,20 @@ jobs:
       with:
         push: true
         tags: robbyawaldi/example-ci-cd:latest
+    -   name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-folder
+          path: |
+            dist
+            package.json
+    - 
+        name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        with:
+          host: 103.173.75.39
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "dist, package.json"
+          target: "~/test-app"
