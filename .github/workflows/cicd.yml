@@ -76,3 +76,25 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           source: "dist, package.json"
           target: "~/test-app"
+
+
+  cd-docker:
+
+    needs: [ci]
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    -
+        name: VPS - pull image and run app container
+        uses: appleboy/ssh-action@master
+        with: 
+          host: 103.173.75.39
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+             docker pull robbyawaldi/example-ci-cd:latest
+             docker rm -f example-ci-cd
+             docker run -d -p 8081:8083 --restart always --network cicd-net --network-alias=nodejs -e HOST=db --name example-ci-cd robbyawaldi/example-ci-cd:latest
+             docker exec -i example-ci-cd yarn typeorm migration:run
