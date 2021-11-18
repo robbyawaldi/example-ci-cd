@@ -1,14 +1,14 @@
-GET http://localhost:8080
+GET http://localhost:8083
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/users
+GET http://localhost:8083/users
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/users?filter-city=jakarta
+GET http://localhost:8083/users/cities
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/users/cities
-Content-Type: application/json
+# GET http://localhost:8080/users?filter-city=jakarta
+# Content-Type: application/json
